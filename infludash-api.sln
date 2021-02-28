@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31005.135
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "infludash-api", "sociodash-api\infludash-api.csproj", "{B14C9BCA-6B29-4E6A-9386-FBFC9F0652EC}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AuthLib", "AuthLib\AuthLib.csproj", "{410574F8-4E64-4245-9DEF-F0B69B592D92}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SocialLib", "SocialLib\SocialLib.csproj", "{EC2B94B8-D0DB-44AB-868A-51C29C8A49D4}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PaymentLib", "PaymentLib\PaymentLib.csproj", "{97077055-7E4B-4799-81C7-4C8FCD600F3D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MailLib", "MailLib\MailLib.csproj", "{5FBC3EF2-771A-4245-A3AA-788D0EEB8EAB}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConfigLib", "ConfigLib\ConfigLib.csproj", "{6866D2C4-9493-4B9B-83C6-CCEB121D3201}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B14C9BCA-6B29-4E6A-9386-FBFC9F0652EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B14C9BCA-6B29-4E6A-9386-FBFC9F0652EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B14C9BCA-6B29-4E6A-9386-FBFC9F0652EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B14C9BCA-6B29-4E6A-9386-FBFC9F0652EC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{410574F8-4E64-4245-9DEF-F0B69B592D92}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{410574F8-4E64-4245-9DEF-F0B69B592D92}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{410574F8-4E64-4245-9DEF-F0B69B592D92}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{410574F8-4E64-4245-9DEF-F0B69B592D92}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EC2B94B8-D0DB-44AB-868A-51C29C8A49D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EC2B94B8-D0DB-44AB-868A-51C29C8A49D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EC2B94B8-D0DB-44AB-868A-51C29C8A49D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EC2B94B8-D0DB-44AB-868A-51C29C8A49D4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{97077055-7E4B-4799-81C7-4C8FCD600F3D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{97077055-7E4B-4799-81C7-4C8FCD600F3D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{97077055-7E4B-4799-81C7-4C8FCD600F3D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{97077055-7E4B-4799-81C7-4C8FCD600F3D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5FBC3EF2-771A-4245-A3AA-788D0EEB8EAB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5FBC3EF2-771A-4245-A3AA-788D0EEB8EAB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5FBC3EF2-771A-4245-A3AA-788D0EEB8EAB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5FBC3EF2-771A-4245-A3AA-788D0EEB8EAB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6866D2C4-9493-4B9B-83C6-CCEB121D3201}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6866D2C4-9493-4B9B-83C6-CCEB121D3201}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6866D2C4-9493-4B9B-83C6-CCEB121D3201}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6866D2C4-9493-4B9B-83C6-CCEB121D3201}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {63821F09-5579-408D-8A61-092AB697B3BA}
+	EndGlobalSection
+EndGlobal
