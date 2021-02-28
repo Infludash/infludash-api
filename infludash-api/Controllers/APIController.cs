@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace infludash_api.Controllers
 {
     [ApiController]
-    public class HomeController : ControllerBase
+    public class APIController : Controller
     {
         [HttpGet("/")]
         public IActionResult Index()

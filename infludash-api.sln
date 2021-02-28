@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31005.135
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "infludash-api", "sociodash-api\infludash-api.csproj", "{B14C9BCA-6B29-4E6A-9386-FBFC9F0652EC}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AuthLib", "AuthLib\AuthLib.csproj", "{410574F8-4E64-4245-9DEF-F0B69B592D92}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SocialLib", "SocialLib\SocialLib.csproj", "{EC2B94B8-D0DB-44AB-868A-51C29C8A49D4}"
@@ -15,16 +13,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MailLib", "MailLib\MailLib.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConfigLib", "ConfigLib\ConfigLib.csproj", "{6866D2C4-9493-4B9B-83C6-CCEB121D3201}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "infludash-api", "infludash-api\infludash-api.csproj", "{1C326FA7-7051-4C51-8832-A941091E4655}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{B14C9BCA-6B29-4E6A-9386-FBFC9F0652EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B14C9BCA-6B29-4E6A-9386-FBFC9F0652EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B14C9BCA-6B29-4E6A-9386-FBFC9F0652EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B14C9BCA-6B29-4E6A-9386-FBFC9F0652EC}.Release|Any CPU.Build.0 = Release|Any CPU
 		{410574F8-4E64-4245-9DEF-F0B69B592D92}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{410574F8-4E64-4245-9DEF-F0B69B592D92}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{410574F8-4E64-4245-9DEF-F0B69B592D92}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -45,6 +41,10 @@ Global
 		{6866D2C4-9493-4B9B-83C6-CCEB121D3201}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6866D2C4-9493-4B9B-83C6-CCEB121D3201}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6866D2C4-9493-4B9B-83C6-CCEB121D3201}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1C326FA7-7051-4C51-8832-A941091E4655}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1C326FA7-7051-4C51-8832-A941091E4655}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1C326FA7-7051-4C51-8832-A941091E4655}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1C326FA7-7051-4C51-8832-A941091E4655}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

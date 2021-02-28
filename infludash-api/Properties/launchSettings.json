@@ -4,8 +4,8 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://localhost:59442",
-      "sslPort": 44390
+      "applicationUrl": "http://localhost:55392",
+      "sslPort": 44394
     }
   },
   "profiles": {
@@ -17,7 +17,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "sociodash_api": {
+    "infludash_api": {
       "commandName": "Project",
       "launchBrowser": true,
       "launchUrl": "",
