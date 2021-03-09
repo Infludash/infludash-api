@@ -6,13 +6,14 @@ using System.Threading.Tasks;
 
 namespace infludash_api.Controllers
 {
+    // api/socials
+    [Route("api/[controller]")]
     [ApiController]
-    public class APIController : Controller
+    public class SocialsController : Controller
     {
-        [HttpGet("/")]
         public IActionResult Index()
         {
-            return Ok();
+            return View();
         }
     }
 }
