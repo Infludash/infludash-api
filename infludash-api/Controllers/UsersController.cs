@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BC = BCrypt.Net.BCrypt;
 
 namespace infludash_api.Controllers
 {
@@ -27,7 +28,7 @@ namespace infludash_api.Controllers
             return (this.myDbContext.users.ToList());
         }
 
-        // POST: api/users
+        // POST api/users
         [HttpPost]
         public async Task<IActionResult> Register(User user)
         {
@@ -37,10 +38,36 @@ namespace infludash_api.Controllers
             }
 
             user.createdAt = DateTime.Now;
+            user.password = BC.HashPassword(user.password);
             myDbContext.users.Add(user);
             await myDbContext.SaveChangesAsync();
 
             return Created("", user);
+        }
+
+        // POST api/users/authenticate
+        [HttpPost("authenticate")]
+        public IActionResult Authenticate(LoginUser user)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest("Invalid data.");
+            }
+
+            // get account from database
+            var account = myDbContext.users.SingleOrDefault(x => x.email == user.email);
+
+            // check account found and verify password
+            if (account == null || !BC.Verify(user.password, account.password))
+            {
+                // authentication failed
+                return Unauthorized("Credentials do not match our records");
+            }
+            else
+            {
+                // authentication successful
+                return Ok();
+            }
         }
     }
 }

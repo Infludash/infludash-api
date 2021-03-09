@@ -15,7 +15,7 @@ namespace infludash_api.Models
         public int id { get; set; }
         [Required]
         public string name { get; set; }
-        [Required, EmailAddress, EmailUnique]
+        [Required, EmailAddress, EmailUnique(EmailUniqueType.Register)]
         public string email { get; set; }
         [Required, DataType(DataType.Password), PasswordValidation(ErrorMessage = "Password must contain at least 8 characters with at least one special character, a number, an uppercase character and no whitespaces.")]
         public string password { get; set; }

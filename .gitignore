@@ -40,4 +40,4 @@ msbuild.wrn
 *.secrets.json
 
 #Migrations
-*/Migrations/
+*/Migrations/*
