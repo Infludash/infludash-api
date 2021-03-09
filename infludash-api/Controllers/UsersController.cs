@@ -29,14 +29,16 @@ namespace infludash_api.Controllers
 
         // POST: api/users
         [HttpPost]
-        public IActionResult Register(User user)
+        public async Task<IActionResult> Register(User user)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest("Invalid data.");
             }
 
-            
+            user.createdAt = DateTime.Now;
+            myDbContext.users.Add(user);
+            await myDbContext.SaveChangesAsync();
 
             return Created("", user);
         }

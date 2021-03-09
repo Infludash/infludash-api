@@ -1,4 +1,4 @@
-﻿using infludash_api.Attributes;
+﻿using infludash_api.Attributes.User;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -15,9 +15,9 @@ namespace infludash_api.Models
         public int id { get; set; }
         [Required]
         public string name { get; set; }
-        [Required, EmailAddress]
+        [Required, EmailAddress, EmailUnique]
         public string email { get; set; }
-        [Required, DataType(DataType.Password), PasswordValidation(ErrorMessage = "Password must contain at least 8 characters with at least one special character, a number, an uppercase character and no whitespaces")]
+        [Required, DataType(DataType.Password), PasswordValidation(ErrorMessage = "Password must contain at least 8 characters with at least one special character, a number, an uppercase character and no whitespaces.")]
         public string password { get; set; }
         [Required, NotMapped, DataType(DataType.Password), Compare(nameof(password))]
         public string passwordConfirmation { get; set; }

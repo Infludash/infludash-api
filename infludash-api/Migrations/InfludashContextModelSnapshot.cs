@@ -22,7 +22,7 @@ namespace infludash_api.Migrations
                     b.Property<string>("accessToken")
                         .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
 
-                    b.Property<string>("SocialId")
+                    b.Property<string>("socialId")
                         .IsRequired()
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 

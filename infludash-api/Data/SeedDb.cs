@@ -20,7 +20,7 @@ namespace infludash_api.Data
             var u1 = new User() { name = "Thomas Street", email = "thomasofthestreet@outlook.com", password = "hashedpassword", passwordConfirmation = "hashedpassword", createdAt = DateTime.Now };
             context.users.Add(u1);
 
-            var s1 = new Social() { accessToken = "specialAccessToken", SocialId = "specialId", type = SocialType.Facebook, user = u1 };
+            var s1 = new Social() { accessToken = "specialAccessToken", socialId = "specialId", type = SocialType.Facebook, user = u1 };
             context.socials.Add(s1);
 
             context.SaveChanges();

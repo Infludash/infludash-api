@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace infludash_api.Attributes
+namespace infludash_api.Attributes.User
 {
     public class PasswordValidationAttribute : ValidationAttribute
     {

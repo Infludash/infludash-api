@@ -12,7 +12,7 @@ namespace infludash_api.Models
         [Key, Required]
         public string accessToken { get; set; }
         [Required]
-        public string SocialId { get; set; }
+        public string socialId { get; set; }
         [Required]
         public SocialType type { get; set; }
         public User user { get; set; }
