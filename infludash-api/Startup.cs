@@ -40,7 +40,8 @@ namespace infludash_api
             {
                 app.UseDeveloperExceptionPage();
             }
-            else
+
+            if (env.IsProduction() || env.IsStaging())
             {
                 app.UseExceptionHandler("/api/error");
                 app.UseHsts();
