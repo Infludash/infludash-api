@@ -17,3 +17,5 @@ The API powering Infludash
 - [x] Implement JWT in current authentication
 - [x] Authorize all routes except login and register
 - [ ] HIBP API implementation for password
+- [ ] Implement refreshTokens
+- [ ] Add logout route that deletes refreshToken
