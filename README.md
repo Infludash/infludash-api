@@ -16,3 +16,4 @@ The API powering Infludash
 - [ ] Make general environments file for storing secrets (probably in json)
 - [x] Implement JWT in current authentication
 - [x] Authorize all routes except login and register
+- [ ] HIBP API implementation for password
