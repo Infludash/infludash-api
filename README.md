@@ -14,5 +14,5 @@ The API powering Infludash
 - [x] Register flow
 - [x] Bcrypt implementation
 - [ ] Make general environments file for storing secrets (probably in json)
-- [ ] Implement JWT in current authentication
-- [ ] Authorize all routes except login and register
+- [x] Implement JWT in current authentication
+- [x] Authorize all routes except login and register
