@@ -1,6 +1,9 @@
 ﻿using infludash_api.Data;
+using infludash_api.Services;
 using infludash_api.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,14 +18,17 @@ namespace infludash_api.Controllers
     public class UsersController : Controller
     {
         private InfludashContext myDbContext;
+        private IConfiguration _config;
 
-        public UsersController(InfludashContext context)
+        public UsersController(InfludashContext context, IConfiguration config)
         {
+            _config = config;
             myDbContext = context;
         }
 
         // GET api/users
         [HttpGet]
+        [Authorize]
         public IList<User> GetAll()
         {
             return (this.myDbContext.users.ToList());
@@ -66,7 +72,9 @@ namespace infludash_api.Controllers
             else
             {
                 // authentication successful
-                return Ok();
+                var jwt = new JwtService(_config);
+                var token = jwt.GenerateSecurityToken(user.email);
+                return Ok(token);
             }
         }
     }
