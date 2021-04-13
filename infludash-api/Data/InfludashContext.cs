@@ -9,7 +9,6 @@ namespace infludash_api.Data
 {
     public class InfludashContext : DbContext
     {
-        public DbSet<User> users { get; set; }
         public DbSet<Social> socials { get; set; }
         public InfludashContext(DbContextOptions<InfludashContext> options) : base(options)
         {

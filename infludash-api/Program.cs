@@ -23,7 +23,6 @@ namespace infludash_api
                 try
                 {
                     var context = services.GetRequiredService<InfludashContext>();
-                    SeedDb.Initialize(context);
                 }
                 catch (Exception ex)
                 {

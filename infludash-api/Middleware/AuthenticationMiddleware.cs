@@ -23,10 +23,8 @@ namespace infludash_api.Middleware
                 x.TokenValidationParameters = new TokenValidationParameters
                 {
                     IssuerSigningKey = new SymmetricSecurityKey(key),
-                    ValidateIssuer = true,
-                    ValidateAudience = true,
-                    ValidIssuer = "infludash",
-                    ValidAudience = "infludash"
+                    ValidateIssuer = false,
+                    ValidateAudience = false,
                 };
             });
 

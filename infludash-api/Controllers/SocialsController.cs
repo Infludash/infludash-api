@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,14 +7,17 @@ using System.Threading.Tasks;
 
 namespace infludash_api.Controllers
 {
-    // api/socials
+    // GET api/socials
     [Route("api/[controller]")]
     [ApiController]
     public class SocialsController : Controller
     {
-        public IActionResult Index()
+        // GET api/socials/test
+        [HttpGet("test")]
+        [Authorize]
+        public IActionResult Test()
         {
-            return View();
+            return Ok("authorized path");
         }
     }
 }

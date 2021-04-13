@@ -15,8 +15,7 @@ namespace infludash_api.Models
         public string socialId { get; set; }
         [Required]
         public SocialType type { get; set; }
-        public User user { get; set; }
-        [ForeignKey(nameof(user))]
-        public int userId { get; set; }
+        [Required]
+        public string email { get; set; }
     }
 }
