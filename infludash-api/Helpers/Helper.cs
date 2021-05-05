@@ -14,12 +14,21 @@ namespace infludash_api.Helpers
 	 */
     public class Helper
     {
-		public static string HttpGetRequest(string url)
+		public static string HttpGetRequest(string url, List<(string, string)> headers=null)
 		{
 			string res = string.Empty;
 
 			HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
 			request.AutomaticDecompression = DecompressionMethods.GZip;
+
+            if (headers != null)
+            {
+                foreach (var header in headers)
+                {
+
+					request.Headers.Set(header.Item1, header.Item2);
+                }
+            }
 
 			using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
 			using (Stream stream = response.GetResponseStream())

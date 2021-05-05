@@ -9,13 +9,15 @@ namespace infludash_api.Models
 {
     public class Social
     {
-        [Key, Required]
-        public string accessToken { get; set; }
         [Required]
+        public string accessToken { get; set; }
+        [Required, Key]
         public string socialId { get; set; }
         [Required]
         public SocialType type { get; set; }
-        [Required]
+        [Required, Key]
         public string email { get; set; }
+        [Required]
+        public string name { get; set; }
     }
 }

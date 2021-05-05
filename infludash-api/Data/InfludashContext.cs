@@ -13,5 +13,10 @@ namespace infludash_api.Data
         public InfludashContext(DbContextOptions<InfludashContext> options) : base(options)
         {
         }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Social>()
+                .HasKey(e => new { e.socialId, e.email });
+        }
     }
 }

@@ -11,6 +11,7 @@ namespace infludash_api
 {
     public class Startup
     {
+        readonly string myOrigins = "myOrigins";
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -24,8 +25,21 @@ namespace infludash_api
             string mySqlConnectionStr = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContextPool<InfludashContext>(options => options.UseMySql(mySqlConnectionStr, ServerVersion.AutoDetect(mySqlConnectionStr)));
 
-            services.AddControllers().AddJsonOptions(options => options.JsonSerializerOptions.IgnoreNullValues = true);
+            services.AddControllers().AddNewtonsoftJson();
             services.AddTokenAuthentication(Configuration);
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy( 
+                    name: myOrigins,
+                    builder =>
+                    {
+                        builder.WithOrigins("http://localhost:4200")
+                        .AllowAnyHeader()
+                        .AllowAnyMethod()
+                        .AllowCredentials();
+                    });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -47,13 +61,15 @@ namespace infludash_api
              app.UseHttpsRedirection();
             */
 
+            app.UseStaticFiles();
+
             app.UseRouting();
+
+            app.UseCors(myOrigins);
 
             app.UseAuthentication();
 
             app.UseAuthorization();
-
-            app.UseStaticFiles();
 
             app.UseEndpoints(endpoints =>
             {
