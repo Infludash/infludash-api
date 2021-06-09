@@ -16,6 +16,7 @@ using System.Reflection;
 using Hangfire;
 using System.Diagnostics;
 using Microsoft.AspNetCore.Http;
+using infludash_api.Helpers;
 
 namespace infludash_api.Controllers
 {
@@ -26,6 +27,8 @@ namespace infludash_api.Controllers
     {
         private readonly InfludashContext context;
         public YoutubeService ytService = new YoutubeService();
+        public FacebookService fbService = new FacebookService();
+
         public SocialsController(InfludashContext infludashContext)
         {
             context = infludashContext;
@@ -339,6 +342,20 @@ namespace infludash_api.Controllers
             }
         }
 
+        [HttpGet("facebook/{userId}/pages")]
+        public IActionResult FbUserPages(string userId)
+        {
+            var social = context.socials.First(s => s.socialId == userId);
+            try
+            {
+                return Ok(JsonConvert.DeserializeObject(fbService.GetPagesByUserId(userId, social.accessToken)));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex);
+            }
+        }
+
         // POST api/socials/facebook/post
         [HttpPost("facebook/post")]
         [Authorize, ReadableBodyStream]
@@ -352,9 +369,47 @@ namespace infludash_api.Controllers
                     return BadRequest();
                 }
                 dynamic jsonBody = JObject.Parse(body.Result);
-                
-               
-                return Ok();
+                string pageId = jsonBody.pageId;
+                string message = jsonBody.message;
+                string accessToken = jsonBody.accessToken;
+                double scheduledFor = jsonBody.scheduledFor;
+                string id = jsonBody.socialId;
+
+                Social social;
+                try
+                {
+                    social = context.socials.First(s => s.socialId == id.ToString());
+                }
+                catch (Exception ex)
+                {
+                    return BadRequest(ex);
+                }
+                try
+                {
+                    BackgroundJob.Schedule(() => fbService.postToPage(pageId, message, accessToken), TimeSpan.FromMinutes(scheduledFor));
+                    var post = new Post { email = social.email, type = SocialType.Facebook, scheduled = DateTime.Now + TimeSpan.FromMinutes(scheduledFor), title = "Facebook post" };
+                    try
+                    {
+                        context.posts.Add(post);
+                    }
+                    catch (Exception ex)
+                    {
+                        return BadRequest(ex);
+                    }
+                    try
+                    {
+                        this.context.SaveChanges();
+                    }
+                    catch (Exception ex)
+                    {
+                        return BadRequest(ex);
+                    }
+                    return Ok(post);
+                }
+                catch (Exception ex)
+                {
+                    return BadRequest(ex);
+                }
             }
         }
         #endregion

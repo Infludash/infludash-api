@@ -21,7 +21,7 @@ namespace infludash_api.Models
         public string name { get; set; }
         [Required]
         public string imageUrl { get; set; }
-        [Required]
         public string regionCode { get; set; }
+        public string pageIds { get; set; }
     }
 }
