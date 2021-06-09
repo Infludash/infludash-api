@@ -18,5 +18,7 @@ namespace infludash_api.Models
         public DateTime scheduled { get; set; }
         [Required]
         public SocialType type { get; set; }
+        [Required]
+        public string postId { get; set; }
     }
 }

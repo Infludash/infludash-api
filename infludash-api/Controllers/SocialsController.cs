@@ -250,8 +250,7 @@ namespace infludash_api.Controllers
                     return BadRequest(ex);
                 }
                 double scheduledFor = Double.Parse(Request.Headers["ScheduledFor"]);
-                BackgroundJob.Schedule(() => ytService.UploadVideo(social.accessToken, body, location), TimeSpan.FromMinutes(scheduledFor));
-                var post = new Post { email = social.email, type = SocialType.Youtube, scheduled = DateTime.Now + TimeSpan.FromMinutes(scheduledFor), title="Youtube post" };
+                var post = new Post { email = social.email, type = SocialType.Youtube, scheduled = DateTime.Now + TimeSpan.FromMinutes(scheduledFor), title="Youtube post", postId = BackgroundJob.Schedule(() => ytService.UploadVideo(social.accessToken, body, location), TimeSpan.FromMinutes(scheduledFor)) };
                 try
                 {
                     context.posts.Add(post);
@@ -386,8 +385,7 @@ namespace infludash_api.Controllers
                 }
                 try
                 {
-                    BackgroundJob.Schedule(() => fbService.postToPage(pageId, message, accessToken), TimeSpan.FromMinutes(scheduledFor));
-                    var post = new Post { email = social.email, type = SocialType.Facebook, scheduled = DateTime.Now + TimeSpan.FromMinutes(scheduledFor), title = "Facebook post" };
+                    var post = new Post { email = social.email, type = SocialType.Facebook, scheduled = DateTime.Now + TimeSpan.FromMinutes(scheduledFor), title = "Facebook post", postId = BackgroundJob.Schedule(() => fbService.postToPage(pageId, message, accessToken), TimeSpan.FromMinutes(scheduledFor)) };
                     try
                     {
                         context.posts.Add(post);
