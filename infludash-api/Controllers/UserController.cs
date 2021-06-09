@@ -1,9 +1,12 @@
 ﻿using infludash_api.Data;
+using infludash_api.Helpers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MySqlConnector;
+using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace infludash_api.Controllers
@@ -39,7 +42,7 @@ namespace infludash_api.Controllers
                 {
                     context.socials.Remove(social);
                 }
-                
+
                 var posts = context.posts.Where(p => p.email == email).ToList();
 
                 // delete jobs
@@ -63,6 +66,28 @@ namespace infludash_api.Controllers
                 return BadRequest(ex);
             }
         }
+
         // Return account (everything)
+        [HttpGet("{email}"), Authorize]
+        public IActionResult GetAllAccountData(string email)
+        {
+            List<(string, string)> headers = new List<(string, string)>();
+            headers.Add(("Authorization", Request.Headers["Authorization"]));
+            // get account
+            var user = Helper.HttpGetRequest("http://127.0.0.1:8000/auth/user/", headers);
+            // get linked socials
+            var socials = context.socials.Where(s => s.email == email).ToList();
+            // get posts
+            var posts = context.posts.Where(p => p.email == email).ToList();
+
+            var response = new
+            {
+                account = JsonConvert.DeserializeObject(user),
+                socials = socials,
+                posts = posts
+            };
+
+            return Ok(response);
+        }
     }
 }
