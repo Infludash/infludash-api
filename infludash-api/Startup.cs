@@ -1,11 +1,18 @@
+using Hangfire;
+using Hangfire.Dashboard.BasicAuthorization;
+using Hangfire.MySql;
 using infludash_api.Data;
 using infludash_api.Middleware;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Features;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
+using System.IO;
 
 namespace infludash_api
 {
@@ -34,12 +41,17 @@ namespace infludash_api
                     name: myOrigins,
                     builder =>
                     {
-                        builder.WithOrigins("http://localhost:4200")
+                        builder.WithOrigins(Configuration["Cors:frontend"])
                         .AllowAnyHeader()
                         .AllowAnyMethod()
                         .AllowCredentials();
                     });
             });
+
+            services.AddHangfire(x => x.UseStorage(new MySqlStorage(mySqlConnectionStr, new MySqlStorageOptions { 
+                PrepareSchemaIfNecessary = true
+            })));
+            services.AddHangfireServer();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -70,6 +82,33 @@ namespace infludash_api
             app.UseAuthentication();
 
             app.UseAuthorization();
+
+            var options = new DashboardOptions
+            {
+                Authorization = new[]
+                {
+                    new BasicAuthAuthorizationFilter(
+                        new BasicAuthAuthorizationFilterOptions
+                        {
+                            // Require secure connection for dashboard
+                            RequireSsl = true,
+                            // Case sensitive login checking
+                            LoginCaseSensitive = true,
+                            // Users
+                            Users = new[]
+                            {
+                                new BasicAuthAuthorizationUser
+                                {
+                                    Login = Configuration["Hangfire:user"],
+                                    // Password as plain text, SHA1 will be used
+                                    PasswordClear = Configuration["Hangfire:password"]
+                                },
+                            }
+                    })
+                }
+            };
+
+            app.UseHangfireDashboard("/hangfire", options);
 
             app.UseEndpoints(endpoints =>
             {

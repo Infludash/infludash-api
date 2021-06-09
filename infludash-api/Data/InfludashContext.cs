@@ -10,6 +10,7 @@ namespace infludash_api.Data
     public class InfludashContext : DbContext
     {
         public DbSet<Social> socials { get; set; }
+        public DbSet<Post> posts { get; set; }
         public InfludashContext(DbContextOptions<InfludashContext> options) : base(options)
         {
         }

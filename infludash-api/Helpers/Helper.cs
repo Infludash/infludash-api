@@ -1,11 +1,15 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Security.Cryptography;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace infludash_api.Helpers
 {
@@ -20,39 +24,86 @@ namespace infludash_api.Helpers
 
 			HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
 			request.AutomaticDecompression = DecompressionMethods.GZip;
+			request.Method = "GET";
 
-            if (headers != null)
+			if (headers != null)
             {
                 foreach (var header in headers)
                 {
-
 					request.Headers.Set(header.Item1, header.Item2);
                 }
             }
 
-			using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
-			using (Stream stream = response.GetResponseStream())
-			using (StreamReader reader = new StreamReader(stream))
-			{
-				res = reader.ReadToEnd();
-			}
+            try
+            {
+				using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+				using (Stream stream = response.GetResponseStream())
+				using (StreamReader reader = new StreamReader(stream))
+				{
+					res = reader.ReadToEnd();
+				}
 
-			return res;
+				return res;
+			}
+            catch (Exception ex)
+            {
+				return ex.Message;
+                throw;
+            }
 		}
-
-		/* Piece of code based on 
-		 * http://findnerd.com/list/view/Converting-a-given-string-to-SHA1-hash-using-c/17922/
-		 */
-		public static string GetSha1(string value)
+		public static string HttpPostRequest(string url, dynamic data, List<(string, string)> headers=null)
 		{
-			var data = Encoding.ASCII.GetBytes(value);
-			var hashData = new SHA1Managed().ComputeHash(data);
-			var hash = string.Empty;
-			foreach (var b in hashData)
-			{
-				hash += b.ToString("X2");
+			string res = string.Empty;
+
+			HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+			request.AutomaticDecompression = DecompressionMethods.GZip;
+			request.Method = "POST";
+
+			if (headers != null)
+            {
+                foreach (var header in headers)
+                {
+					request.Headers.Set(header.Item1, header.Item2);
+                }
+            }
+
+			/*
+			 Piece of code based on: https://stackoverflow.com/questions/4088625/net-simplest-way-to-send-post-with-data-and-read-response
+			 */
+			// We need to count how many bytes we're sending. 
+			// Post'ed Faked Forms should be name=value&
+			byte[] bytes;
+            if (data is String)
+            {
+				// body is string
+				bytes = System.Text.Encoding.ASCII.GetBytes(data);
+            }
+            else
+            {
+				// body is file
+				bytes = data;
+            }
+			request.ContentLength = bytes.Length;
+			System.IO.Stream os = request.GetRequestStream();
+			os.Write(bytes, 0, bytes.Length); // Push it out there
+			os.Close();
+
+            try
+            {
+				using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+				using (Stream stream = response.GetResponseStream())
+				using (StreamReader reader = new StreamReader(stream))
+				{
+					res = reader.ReadToEnd();
+				}
+
+				return res;
 			}
-			return hash;
+            catch (Exception ex)
+            {
+				return ex.Message;
+                throw;
+            }
 		}
 	}
 }
