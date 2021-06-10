@@ -17,6 +17,7 @@ using Hangfire;
 using System.Diagnostics;
 using Microsoft.AspNetCore.Http;
 using infludash_api.Helpers;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace infludash_api.Controllers
 {
@@ -28,10 +29,11 @@ namespace infludash_api.Controllers
         private readonly InfludashContext context;
         public YoutubeService ytService = new YoutubeService();
         public FacebookService fbService = new FacebookService();
-
-        public SocialsController(InfludashContext infludashContext)
+        private readonly IMemoryCache memoryCache;
+        public SocialsController(InfludashContext infludashContext, IMemoryCache memoryCache)
         {
             context = infludashContext;
+            this.memoryCache = memoryCache;
         }
 
         // POST api/socials
@@ -285,13 +287,27 @@ namespace infludash_api.Controllers
         [Authorize]
         public IActionResult GetVideoCategories(string regionCode)
         {
+            var cacheKey = "regionCode_" + regionCode.ToLower();
+            if (!this.memoryCache.TryGetValue(cacheKey, out string videoCategories))
+            {
+                videoCategories = ytService.GetVideoCategories(regionCode);
+
+                var chacheExpirationOptions = new MemoryCacheEntryOptions
+                {
+                    AbsoluteExpiration = DateTime.Now.AddHours(6),
+                    Priority = CacheItemPriority.Normal,
+                    SlidingExpiration = TimeSpan.FromMinutes(5)
+                };
+                this.memoryCache.Set(cacheKey, videoCategories, chacheExpirationOptions);
+            }
             using (StreamReader stream = new StreamReader(HttpContext.Request.Body))
             {
-                return Ok(JsonConvert.DeserializeObject(ytService.GetVideoCategories(regionCode)));
+                return Ok(JsonConvert.DeserializeObject(videoCategories));
             }
         }
         #endregion
 
+        // api/socials/facebook
         #region Facebook
         // POST api/socials/facebook/link
         /// <summary>
