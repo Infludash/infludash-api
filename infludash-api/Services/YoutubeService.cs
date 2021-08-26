@@ -70,7 +70,7 @@ namespace infludash_api.Services
             return Helper.HttpGetRequest(url, headers);
         }
 
-        private string GetLocationHeaderResponsePostRequest(string url, string jsonPayload, List<(string, string)> headers)
+        public string GetLocationHeaderResponsePostRequest(string url, string jsonPayload, List<(string, string)> headers)
         {
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
             request.AutomaticDecompression = DecompressionMethods.GZip;
@@ -109,10 +109,10 @@ namespace infludash_api.Services
                     }
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Debug.WriteLine(ex);
                 return String.Empty;
-                throw;
             }
             
         }

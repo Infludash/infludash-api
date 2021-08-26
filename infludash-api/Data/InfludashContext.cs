@@ -11,6 +11,7 @@ namespace infludash_api.Data
     {
         public DbSet<Social> socials { get; set; }
         public DbSet<Post> posts { get; set; }
+        public DbSet<YtPreference> yt_preferences { get; set; }
         public InfludashContext(DbContextOptions<InfludashContext> options) : base(options)
         {
         }
